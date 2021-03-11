@@ -48,9 +48,30 @@ function newButton(id, DisplayName, moduleListId, hoverText, backgroundColor, bo
         button.style.border = "solid";
         button.style.borderWidth = "2px";
         button.style.borderColor = borderColor;
+        button.style.outline = "none";
         setTimeout(
                 function() {
+                        document.getElementById(id).addEventListener('click', function() {modules[moduleListId].toggle()})
                         document.getElementById(id).addEventListener('click', function() {modules[moduleListId].execute()})
+                        document.getElementById(id).addEventListener('contextmenu', function(e) {
+                                e.preventDefault();
+                                if(modules[moduleListId].hasSettings == true) {
+                                        if(document.getElementById(modules[moduleListId].getModuleId() + "-moduleS-setting-container").style.display == "none") {
+                                                document.getElementById(modules[moduleListId].getModuleId() + "-moduleS-setting-container").style.display = "";
+                                                document.getElementById(modules[moduleListId].getModuleId() + "-moduleS-container").style.borderLeft = "solid";
+                                                document.getElementById(modules[moduleListId].getModuleId() + "-moduleS-container").style.borderWidth = "5px";
+                                                document.getElementById(modules[moduleListId].getModuleId() + "-moduleS-container").style.borderColor = "#00ff15";
+                                        } else {
+                                                document.getElementById(modules[moduleListId].getModuleId() + "-moduleS-setting-container").style.display = "none";
+                                                document.getElementById(modules[moduleListId].getModuleId() + "-moduleS-container").style.borderWidth = "2px";
+                                        }
+                                }
+                        })
+                        setInterval(function() {
+                                if(modules[moduleListId].active == true) {
+                                        modules[moduleListId].whileActive();
+                                };
+                        },100);
                 }, 100
         )
         return button;
@@ -123,4 +144,36 @@ function newTextBlock(id, innerHTML, textColor, backgroundColor, borderColor, he
                 }, 100
         )
         return div;
+}
+
+
+
+
+
+//draw functions:
+
+function drawArrayListModule(moduleId, displayName) {
+        let br = document.createElement('div');
+        br.id = moduleId + "-moduleArrayListItemBr";
+        if(document.getElementById("HMSClientModuleArrayList")?.hasChildNodes()) {
+                document.getElementById("HMSClientModuleArrayList")?.appendChild(br);
+        };
+        let x = document.createElement('div');
+        x.id = moduleId + "-moduleArrayListItemDiv";
+        x.innerHTML = displayName;
+        x.style.color = D_ui_border_C;
+        x.style.fontFamily = "arial"
+        x.style.borderRight = "solid";
+        x.style.borderColor = D_ui_border_C;
+        x.style.borderWidth = "4px;";
+        x.style.padding = "3px";
+        x.style.textAlign = "right";
+        let s = document.createElement('div');
+        s.id = moduleId + "-moduleArrayListItem";
+        document.getElementById("HMSClientModuleArrayList")?.appendChild(s);
+        document.getElementById(moduleId + "-moduleArrayListItem")?.appendChild(x);
+}
+function removeArrayListModule(moduleId) {
+        document.getElementById(moduleId + "-moduleArrayListItem")?.remove();
+        document.getElementById(moduleId + "-moduleArrayListItemBr")?.remove();
 }
