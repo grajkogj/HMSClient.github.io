@@ -29,6 +29,7 @@ let membean_Subcategory = new module_sub_category("membean", "quiz", "Membean");
 let paperclips_Subcategory = new module_sub_category("paperclips", "games", "Paperclips");
 let spaceplan_Subcategory = new module_sub_category("spaceplan", "games", "Spaceplan");
 let devTools_Subcategory = new module_sub_category("dev_tools", "devTools", "Tools");
+let misc_fun_Subcategory = new module_sub_category("misc_fun", "misc", "Fun");
 
 //let premium_visual_Subcategory = new module_sub_category("premium_visual", "premium", "Visual");
 
@@ -51,7 +52,8 @@ const module_sub_categorys = [
         membean_Subcategory,
         paperclips_Subcategory,
         spaceplan_Subcategory,
-        devTools_Subcategory
+        devTools_Subcategory,
+        misc_fun_Subcategory
         
         //premium_visual_Subcategory
 ]
